@@ -24,3 +24,7 @@ pytest -v
 ```
 
 The Lab 2 exercise includes an intentionally failing test commit to demonstrate how GitHub Actions reports a CI failure, followed by a corrective commit.
+
+## Assignment 4.2 — Smart Build-Cache Invalidation
+
+Implementation notes and verified cache hit/miss results: [docs/Smart_Build_Cache_Invalidation.md](docs/Smart_Build_Cache_Invalidation.md).
