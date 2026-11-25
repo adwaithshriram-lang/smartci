@@ -38,15 +38,17 @@ The key contains a hash of `requirements.txt`. Therefore, the same dependency fi
 
 The expression `hashFiles('requirements.txt')` calculates a content-based hash from the dependency file. The cache key is not based only on the branch name or commit message. It is tied to the actual dependency specification. This prevents a cache built for an older dependency list from being treated as the current cache after dependencies change.
 
-## 6. Expected observations
+## 6. Observed results
 
-| Run | Input state | Expected cache result |
-|---|---|---|
-| First run after adding cache | No saved cache for the key | Cache miss, install and save |
-| Run after documentation-only change | Same requirements file | Cache hit, reuse cached downloads |
-| Run after adding pytest-cov | New requirements hash | Cache miss, install and save new key |
+The three GitHub Actions runs completed successfully:
 
-The exact cache result should be verified in each GitHub Actions run log. The workflow should also complete the pytest step successfully.
+| Demonstration | GitHub Actions run | Observed cache result | Outcome |
+|---|---|---|---|
+| Cache added | [Run #4](https://github.com/adwaithshriram-lang/smartci/actions/runs/45677084969) | Cache miss; no matching cache existed; cache saved with the original requirements hash | Success |
+| Documentation-only commit | [Run #5](https://github.com/adwaithshriram-lang/smartci/actions/runs/45677136386) | Cache hit; approximately 3 MB restored successfully using the same key | Success |
+| Dependency file changed | [Run #6](https://github.com/adwaithshriram-lang/smartci/actions/runs/45677152702) | New key generated; cache miss; new cache saved | Success |
+
+The first and second runs used the same key, `pip-385f93110a217a06a247c64e1018c917fca8911c00ef1d79dab564651503dc67`. After adding `pytest-cov` to `requirements.txt`, the key changed to `pip-fe0c1a0877c73d175bde098029c48fa310aa6c830e6f17f305be16826257b14a`. This confirms that the cache was invalidated when the dependency input changed. All three workflow jobs and their test steps completed successfully.
 
 ## 7. Benefits
 
