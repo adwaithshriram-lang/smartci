@@ -28,3 +28,10 @@ The Lab 2 exercise includes an intentionally failing test commit to demonstrate 
 ## Assignment 4.2 — Smart Build-Cache Invalidation
 
 Implementation notes and verified cache hit/miss results: [docs/Smart_Build_Cache_Invalidation.md](docs/Smart_Build_Cache_Invalidation.md).
+
+
+## Assignment 4.3 — Dynamic Test-Subset Routing
+
+The Lab 4 selector is implemented in `scripts/select_tests.py`. It reads the Git diff, follows Python import dependencies (including transitive dependencies), and runs only affected pytest files. If the diff or mapping is uncertain, it safely runs the full suite.
+
+Implementation and learning notes: [docs/Dynamic_Test_Subset_Routing.md](docs/Dynamic_Test_Subset_Routing.md).
